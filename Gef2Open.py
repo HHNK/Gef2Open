@@ -338,6 +338,36 @@ def get_projectid_Number():
 		#return None
 		return 'Error:%s'%(err) 
 
+# note: toegevoegd op 25-02-2016, BK
+# Purpose: Geeft projectnaam uit 'PROJECTID' 
+def Get_ProjectID_Name(headerdict):
+	if ('PROJECTID' in headerdict and len(headerdict['PROJECTID'])>0):
+		out = headerdict['PROJECTID'][0]
+	try:
+		return out
+	except:
+		return None
+
+# note: toegevoegd op 25-02-2016, BK
+# Purpose: Geeft projectcode uit 'PROJECTID'
+def Get_ProjectID_Code(headerdict):
+	if ('PROJECTID' in headerdict and len(headerdict['PROJECTID'])>0):
+		out = headerdict['PROJECTID'][1]
+	try:
+		return out
+	except:
+		return None
+
+# note: toegevoegd op 25-02-2016, BK
+# Purpose: Geeft projectnaam uit 'PROJECTID' 
+def Get_ProjectID_SubCode(headerdict):
+	if ('PROJECTID' in headerdict and len(headerdict['PROJECTID'])>0):
+		out = headerdict['PROJECTID'][2]
+	try:
+		return out
+	except:
+		return None
+
 # Purpose: Of #REPORTCODE aanwezig
 def get_reportcode_flag():
 	fp = open("tmpheaderdict.pkl")
@@ -380,6 +410,11 @@ def get_startdate_flag():
 			out = True
 		else:
 			out=False
+	elif 'FILEDATE' in headerdict:
+		if len(headerdict['FILEDATE'])>2:
+			out = True
+		else:
+			out=False		
 	else:
 		out = False
 	try:
@@ -394,6 +429,11 @@ def get_startdate_Yyyy():
 	if 'STARTDATE' in headerdict: 
 		if len(headerdict['STARTDATE'])>2:
 			out = int(headerdict['STARTDATE'][0])
+		else:
+			err = 'MissingValue'
+	elif 'FILEDATE' in headerdict: 
+		if len(headerdict['FILEDATE'])>2:
+			out = int(headerdict['FILEDATE'][0])
 		else:
 			err = 'MissingValue'
 	else:
@@ -413,6 +453,11 @@ def get_startdate_Mm():
 			out = int(headerdict['STARTDATE'][1])
 		else:
 			err = 'MissingValue'
+	elif 'FILEDATE' in headerdict: 
+		if len(headerdict['FILEDATE'])>2:
+			out = int(headerdict['FILEDATE'][1])
+		else:
+			err = 'MissingValue'
 	else:
 		err = 'MissingKeyword'
 	try:
@@ -428,6 +473,11 @@ def get_startdate_Dd():
 	if 'STARTDATE' in headerdict:
 		if len(headerdict['STARTDATE'])>2:
 			out = int(headerdict['STARTDATE'][2])
+		else:
+			err = 'MissingValue'
+	if 'FILEDATE' in headerdict:
+		if len(headerdict['FILEDATE'])>2:
+			out = int(headerdict['FILEDATE'][2])
 		else:
 			err = 'MissingValue'
 	else:
